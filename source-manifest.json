@@ -1,0 +1,43 @@
+{
+  "addon": "CounterCast",
+  "version": "1.0.0-rc6",
+  "interface": 16001,
+  "files": [
+    {
+      "path": "Abilities.lua",
+      "bytes": 5724,
+      "sha256": "a3c07e03720067b4bb6341e798f03f31b960a54315e341d191293410af6cf0ad",
+      "external": false
+    },
+    {
+      "path": "CounterCast.lua",
+      "bytes": 16234,
+      "sha256": "a41d60f3427f90e076affbdc270031875ec07e34a363223d43d722a573217ced",
+      "external": false
+    },
+    {
+      "path": "CounterCast.toc",
+      "bytes": 409,
+      "sha256": "8d17b7a3309c8f606c8e62ccbffb12a3f87672b11b2a41361134ba17f5d2ab86",
+      "external": false
+    },
+    {
+      "path": "MacroActions.lua",
+      "bytes": 2999,
+      "sha256": "d3e459bd977cef36bf0ea8eec786c3643e9895dec80e0ef449cb1d47c247194a",
+      "external": false
+    },
+    {
+      "path": "Minimap.lua",
+      "bytes": 3528,
+      "sha256": "b0060dd1404cb889974a6319efad657d3d400088b6d2dada18488f1f148e2092",
+      "external": false
+    },
+    {
+      "path": "Options.lua",
+      "bytes": 7866,
+      "sha256": "8b7b9b762ec2e3962e3f62c428125909ccd16aa76d7d107abd76e2bc876b4cff",
+      "external": false
+    }
+  ]
+}

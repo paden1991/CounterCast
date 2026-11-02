@@ -1,0 +1,15 @@
+## Interface: 16001
+## Title: CounterCast
+## Notes: Clickable mouseover interrupts and controls on enemy nameplates.
+## Author: Paden
+## Version: 1.0.0-rc6
+## SavedVariables: CounterCastDB
+## SavedVariablesPerCharacter: CounterCastCharacterDB
+## OptionalDeps: CounterCastProbe
+## IconTexture: Interface\Icons\Ability_Kick
+
+Abilities.lua
+MacroActions.lua
+CounterCast.lua
+Options.lua
+Minimap.lua
