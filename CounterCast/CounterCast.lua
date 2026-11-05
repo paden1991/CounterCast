@@ -1,5 +1,5 @@
 local addon,P=...;_G.CounterCast=P
-P.version='1.0.0-rc6';P.bars={};P.units={};P.rows={}
+P.version='1.0.0-rc8';P.bars={};P.units={};P.rows={}
 local function combat()return InCombatLockdown and InCombatLockdown()end
 local function number(v)return P:IsPlain(v)and type(v)=='number'and v==v and v~=math.huge and v~=-math.huge end
 local function text(v)return P:IsPlain(v)and type(v)=='string'and v or nil end
@@ -214,6 +214,7 @@ function P:Initialize()
  self.db=CounterCastDB;self.characterDB=CounterCastCharacterDB
  if type(self.db.enabled)~='boolean'then self.db.enabled=true end
  if type(self.db.controls)~='boolean'then self.db.controls=true end
+ if type(self.db.disabledSpells)~='table'then self.db.disabledSpells={} end
  for key,default in pairs({idleAlpha=.15,cooldownAlpha=.15,offsetX=0,offsetY=0})do
   local limit=(key=='idleAlpha'or key=='cooldownAlpha')and 1 or (key=='offsetX'and 100 or 80)
   local low=(key=='idleAlpha'or key=='cooldownAlpha')and 0 or -limit
@@ -268,7 +269,8 @@ SlashCmdList.COUNTERCAST=function(message)
  elseif command=='size'then
   local n=arg=='auto'and 0 or tonumber(arg)
   if n==0 or number(n)and n>=16 and n<=64 then P:Setting('size',n)else P:Say('Use /countercast size auto or a size from 16 to 64.')end
- elseif command=='spells'then
+ elseif command=='spells'then P:OpenSpellOptions()
+ elseif command=='list'then
   for _,row in ipairs(P.rows)do P:Say(row.name..' | '..row.kind..(row.pet and ' | requires pet'or ''))end
  elseif command=='refresh'then P.dirty=true;if combat()then P.pending=true;P:Say('Refresh queued until combat ends.')else P:Rebuild()end
  elseif command=='status'then

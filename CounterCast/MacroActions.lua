@@ -1,4 +1,10 @@
 local _,P=...
+-- Cache round-trips can append line endings. Preserve every command and space;
+-- only CRLF and empty trailing lines are equivalent to the generated body.
+local function canonical(body)
+ if type(body)~='string'then return nil end
+ return (body:gsub('\r\n','\n'):gsub('\n+$',''))
+end
 -- Only our recorded, unchanged character macros may be edited. Never delete macros:
 -- deletion renumbers unrelated slots and can invalidate other action buttons.
 function P:EnsureCastMacro(slot,body,icon)
@@ -15,16 +21,26 @@ function P:EnsureCastMacro(slot,body,icon)
   if name then records[index]={name=name,body=text};names[name]=(names[name]or 0)+1 end
  end
  self.characterDB.ownedMacros=type(self.characterDB.ownedMacros)=='table'and self.characterDB.ownedMacros or {}
- local owned=self.characterDB.ownedMacros[slot];local chosen
+ local owned=self.characterDB.ownedMacros[slot];local chosen;local reuseOnly=false
  if type(owned)=='table'and names[owned.name]==1 then
   for index,row in pairs(records)do
-   if index>accountMax and row.name==owned.name and row.body==owned.body then chosen=index;break end
+   if index>accountMax and row.name==owned.name and canonical(row.body)==canonical(owned.body)and (not owned.reuseOnly or canonical(row.body)==body)then chosen=index;reuseOnly=owned.reuseOnly==true;break end
+  end
+ end
+ -- Recover a matching generated macro even if an old ownership record was lost.
+ -- Recovered slots are read-only: never edit them for a different spell later.
+ if not chosen then
+  for index=accountMax+1,accountMax+characterMax do
+   local row=records[index]
+   if row and row.name:match('^CounterCast %d+$')and names[row.name]==1 and canonical(row.body)==body then
+    chosen=index;reuseOnly=true;break
+   end
   end
  end
  local name
  if chosen then
-  name=owned.name
-  if owned.body~=body then
+  name=records[chosen].name
+  if canonical(records[chosen].body)~=body then
    if type(EditMacro)~='function'then return nil,'Macro editing unavailable'end
    local ok=pcall(EditMacro,chosen,name,icon or 134400,body)
    if not ok then return nil,'Client rejected macro update'end
@@ -45,12 +61,12 @@ function P:EnsureCastMacro(slot,body,icon)
   local ok,n,_,text=pcall(GetMacroInfo,index)
   if not ok then return nil,'Macro readback failed'end
   if n==name then
-   if found or text~=body then return nil,'Macro readback mismatch; not arming'end
+   if found or canonical(text)~=body then return nil,'Macro readback mismatch; not arming'end
    found=index
   end
  end
  if not found then return nil,'Saved macro missing after write'end
- self.characterDB.ownedMacros[slot]={name=name,body=body}
+ self.characterDB.ownedMacros[slot]={name=name,body=body,reuseOnly=reuseOnly or nil}
  -- Bind by unique name so creating another slot cannot shift a prior binding.
  return name
 end

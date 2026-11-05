@@ -1,0 +1,61 @@
+{
+  "source": "Actual Lua mock visual outputs; not native rendering",
+  "states": [
+    {
+      "label": "Casting / ready",
+      "alpha": 1,
+      "tint": [
+        1,
+        1,
+        1
+      ],
+      "desaturated": false,
+      "count": "",
+      "countAlpha": 1,
+      "ready": ">",
+      "glow": 1
+    },
+    {
+      "label": "Casting / out of range",
+      "alpha": 1,
+      "tint": [
+        1,
+        0.18,
+        0.18
+      ],
+      "desaturated": false,
+      "count": "",
+      "countAlpha": 1,
+      "ready": "",
+      "glow": 0
+    },
+    {
+      "label": "Not casting",
+      "alpha": 0.15,
+      "tint": [
+        1,
+        1,
+        1
+      ],
+      "desaturated": false,
+      "count": "",
+      "countAlpha": 0.45,
+      "ready": "",
+      "glow": 0
+    },
+    {
+      "label": "Cooldown",
+      "alpha": 0.15,
+      "tint": [
+        1,
+        1,
+        1
+      ],
+      "desaturated": false,
+      "count": "10",
+      "countAlpha": 0.45,
+      "ready": "",
+      "glow": 0
+    }
+  ]
+}

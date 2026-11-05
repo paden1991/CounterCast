@@ -1,0 +1,10 @@
+{
+  "scenario": "Combat; enemy casting; cooldown opacity 0%; numeric timer restricted; isActive true",
+  "fixedIconAlpha": 0,
+  "fixedBorderAlpha": 0,
+  "fixedHighlightAlpha": 0,
+  "fixedCountdownAlpha": 0,
+  "fixedGlowAlpha": 0,
+  "source": "activity flag",
+  "remainingSecondsKnown": false
+}

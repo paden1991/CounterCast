@@ -27,12 +27,12 @@ function P:ResetAppearance()
 end
 local function label(parent,value,x,y,font)
  local t=parent:CreateFontString(nil,'OVERLAY',font or 'GameFontNormal')
- t:SetPoint('TOPLEFT',parent,'TOPLEFT',x,-y);t:SetText(value);return t
+ t:SetPoint('TOPLEFT',parent,'TOPLEFT',x,-y);t:SetJustifyH('LEFT');t:SetText(value);return t
 end
 local function checkbox(parent,title,x,y,changed)
  local b=CreateFrame('CheckButton',nil,parent,'UICheckButtonTemplate')
  b:SetPoint('TOPLEFT',parent,'TOPLEFT',x,-y);b:SetSize(26,26)
- label(parent,title,x+31,y+6,'GameFontHighlight')
+ b.label=label(b,title,31,6,'GameFontHighlight')
  b:SetScript('OnClick',function(self)if not parent.refreshing then changed(self:GetChecked()==true)end end)
  return b
 end
@@ -79,6 +79,7 @@ function P:RefreshOptions()
 end
 function P:OpenOptions()
  if not self.initialized then return end
+ if self.spellOptions then self.spellOptions:Hide()end
  if self.options then self:RefreshOptions();self.options:Show();return end
  local f=CreateFrame('Frame','CounterCastOptions',UIParent)
  self.options=f;f:SetSize(600,670);f:SetPoint('CENTER',UIParent,'CENTER');f:SetFrameStrata('DIALOG')
@@ -120,8 +121,89 @@ function P:OpenOptions()
  label(f,'At 0%, the click area remains active during combat.',30,608,'GameFontHighlightSmall')
  local reset=CreateFrame('Button',nil,f,'UIPanelButtonTemplate');reset:SetSize(160,24);reset:SetPoint('BOTTOMLEFT',f,'BOTTOMLEFT',30,16);reset:SetText('Reset appearance')
  reset:SetScript('OnClick',function()P:ResetAppearance()end);f.reset=reset
+ local spells=CreateFrame('Button',nil,f,'UIPanelButtonTemplate');spells:SetSize(160,24);spells:SetPoint('BOTTOMLEFT',f,'BOTTOMLEFT',210,16);spells:SetText('Choose spells')
+ spells:SetScript('OnClick',function()P:OpenSpellOptions()end);f.spells=spells
  local done=CreateFrame('Button',nil,f,'UIPanelButtonTemplate');done:SetSize(100,24);done:SetPoint('BOTTOMRIGHT',f,'BOTTOMRIGHT',-30,16);done:SetText('Done');done:SetScript('OnClick',function()f:Hide()end)
  f:SetScript('OnShow',function()P:RefreshOptions()end)
  local elapsed=0;f:SetScript('OnUpdate',function(_,dt)elapsed=elapsed+dt;if elapsed>.3 then elapsed=0;P:RefreshOptions()end end)
  self:RefreshOptions();f:Show()
+end
+
+function P:SetSpellSelected(family,enabled)
+ if not self.db then return end
+ local _,class=UnitClass('player');local valid=false
+ for _,row in ipairs(self:SpellChoices(class))do if row.family==family then valid=true;break end end
+ if not valid then return end
+ self.db.disabledSpells[tostring(family)]=not enabled and true or nil
+ self.dirty=true
+ if combat()then self.pending=true else self:Rebuild()end
+ self:RefreshSpellOptions()
+end
+function P:SelectClassSpells(enabled)
+ local _,class=UnitClass('player')
+ for _,row in ipairs(self:SpellChoices(class))do self.db.disabledSpells[tostring(row.family)]=not enabled and true or nil end
+ self.dirty=true
+ if combat()then self.pending=true else self:Rebuild()end
+ self:RefreshSpellOptions()
+end
+function P:RefreshSpellOptions()
+ local f=self.spellOptions;if not f or not self.db then return end
+ f.refreshing=true
+ local className,class=UnitClass('player');local choices=self:SpellChoices(class);local selected=0
+ f.subtitle:SetText((className or class)..' abilities. Choices save account-wide and follow all ranks.')
+ f.controls:SetChecked(self.db.controls)
+ for i,b in ipairs(f.rows)do
+  local row=choices[i]
+  if row then
+   b.family=row.family;b:SetChecked(row.selected);b.label:SetText(row.name);b.icon:SetTexture(row.icon or 134400)
+   local included=self.db.controls or row.kind:lower():find('interrupt',1,true)
+   local state=not row.known and (row.pet and 'Requires the appropriate pet' or row.racial and 'Requires the matching racial ability' or 'Not learned yet') or not included and 'Blocked by the controls option above' or row.selected and 'Shown when available' or 'Not selected'
+   b.detail:SetText(row.kind..'  |  '..state);b:Show()
+   if row.known and row.selected and included then selected=selected+1 end
+  else b:Hide()end
+ end
+ local message=selected==0 and 'No learned abilities selected: no buttons will be shown.' or selected..' learned abilities selected.'
+ if combat()and (self.pending or self.dirty)then message=message..' Changes apply after combat.'end
+ f.notice:SetText(message)
+ f.refreshing=false
+end
+function P:OpenSpellOptions()
+ if not self.initialized then return end
+ if self.options then self.options:Hide()end
+ if self.spellOptions then self:RefreshSpellOptions();self.spellOptions:Show();return end
+ local f=CreateFrame('Frame','CounterCastSpellOptions',UIParent);self.spellOptions=f
+ f:SetSize(600,500);f:SetPoint('CENTER',UIParent,'CENTER');f:SetFrameStrata('DIALOG')
+ local sw,sh=UIParent:GetWidth(),UIParent:GetHeight()
+ if sw and sh and sw>0 and sh>0 then f:SetScale(math.min(1,(sw-24)/600,(sh-24)/500))end
+ local bg=f:CreateTexture(nil,'BACKGROUND');bg:SetAllPoints();bg:SetColorTexture(.055,.075,.10,.98)
+ f:EnableMouse(true);f:SetMovable(true);f:SetClampedToScreen(true);f:RegisterForDrag('LeftButton')
+ f:SetScript('OnDragStart',function(self)self:StartMoving()end);f:SetScript('OnDragStop',function(self)self:StopMovingOrSizing()end)
+ f:SetScript('OnHide',function(self)self:StopMovingOrSizing()end)
+ local close=CreateFrame('Button',nil,f,'UIPanelCloseButton');close:SetPoint('TOPRIGHT',f,'TOPRIGHT',-5,-5);close:SetScript('OnClick',function()f:Hide()end);f.close=close
+ UISpecialFrames=UISpecialFrames or {};table.insert(UISpecialFrames,'CounterCastSpellOptions')
+ label(f,'CounterCast | Spells',30,25,'GameFontNormalLarge')
+ f.subtitle=label(f,'',30,55,'GameFontHighlightSmall');f.subtitle:SetSize(540,25)
+ f.controls=checkbox(f,'Include stuns, fears, and other controls',26,82,function(checked)P:Setting('controls',checked);P:RefreshSpellOptions()end)
+ f.rows={}
+ local _,class=UnitClass('player')
+ local count=0;for _,families in pairs(self.abilities)do count=math.max(count,#families+1)end
+ for i=1,count do
+  local y=132+(i-1)*56;local b
+  b=checkbox(f,'',26,y,function(checked)P:SetSpellSelected(b.family,checked)end)
+  b.label:ClearAllPoints();b.label:SetPoint('TOPLEFT',b,'TOPLEFT',65,-5);b.label:SetSize(475,20)
+  b.icon=b:CreateTexture(nil,'ARTWORK');b.icon:SetSize(26,26);b.icon:SetPoint('LEFT',b,'RIGHT',5,0)
+  b.detail=label(b,'',65,27,'GameFontHighlightSmall');b.detail:SetSize(475,20)
+  f.rows[i]=b
+ end
+ f.notice=label(f,'',30,375,'GameFontHighlightSmall');f.notice:SetSize(540,34)
+ label(f,'Unlearned spells stay unavailable until your character learns them.',30,417,'GameFontHighlightSmall')
+ local function button(title,x,width,fn)
+  local b=CreateFrame('Button',nil,f,'UIPanelButtonTemplate');b:SetSize(width,26);b:SetPoint('BOTTOMLEFT',f,'BOTTOMLEFT',x,20);b:SetText(title);b:SetScript('OnClick',fn);return b
+ end
+ f.all=button('Select all',30,140,function()P:SelectClassSpells(true)end)
+ f.none=button('Select none',185,140,function()P:SelectClassSpells(false)end)
+ f.done=button('Appearance',430,140,function()P:OpenOptions()end)
+ f:SetScript('OnShow',function()P:RefreshSpellOptions()end)
+ local elapsed=0;f:SetScript('OnUpdate',function(_,dt)elapsed=elapsed+dt;if elapsed>.3 then elapsed=0;P:RefreshSpellOptions()end end)
+ self:RefreshSpellOptions();f:Show()
 end

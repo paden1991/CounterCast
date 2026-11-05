@@ -1,0 +1,597 @@
+{
+  "version": "1.0.0-rc8",
+  "passed": 147,
+  "total": 147,
+  "nativeOverlayUserConfirmed": true,
+  "automaticLifecycleLiveVerified": false,
+  "checks": [
+    {
+      "name": "Automatic startup prepares buttons without a probe command",
+      "passed": true
+    },
+    {
+      "name": "Right root anchor is centered with the health bar and matches its thickness",
+      "passed": true
+    },
+    {
+      "name": "Scaled geometry uses screen coordinates while retaining root anchoring",
+      "passed": true
+    },
+    {
+      "name": "Unavailable health geometry has a larger 28 pixel fallback",
+      "passed": true
+    },
+    {
+      "name": "Restricted health geometry is not used",
+      "passed": true
+    },
+    {
+      "name": "Narrow plate fits all buttons in its native region",
+      "passed": true
+    },
+    {
+      "name": "Multiple plates share character macros and retain fixed spell order",
+      "passed": true
+    },
+    {
+      "name": "Exact saved mouseover macro has no target changes or fallback",
+      "passed": true
+    },
+    {
+      "name": "Native click handler and release behavior are preserved",
+      "passed": true
+    },
+    {
+      "name": "Cooldown priority advances without combat attribute writes",
+      "passed": true
+    },
+    {
+      "name": "Unknown cooldown is never promoted to ready",
+      "passed": true
+    },
+    {
+      "name": "Restricted cast and identity observations do not block visual updates",
+      "passed": true
+    },
+    {
+      "name": "Cooldown reads are shared across nameplates",
+      "passed": true
+    },
+    {
+      "name": "New native root created during combat is deferred safely",
+      "passed": true
+    },
+    {
+      "name": "Prepared native root can recycle in combat without reconfiguration",
+      "passed": true
+    },
+    {
+      "name": "Removed units do not retain visible-unit bookkeeping",
+      "passed": true
+    },
+    {
+      "name": "Rebuild clears stale mappings",
+      "passed": true
+    },
+    {
+      "name": "Unannounced mapping mismatch suppresses readiness claims",
+      "passed": true
+    },
+    {
+      "name": "Friendly units receive no ready or cast highlight",
+      "passed": true
+    },
+    {
+      "name": "Off outside combat clears secure actions",
+      "passed": true
+    },
+    {
+      "name": "Combat settings defer every protected mutation",
+      "passed": true
+    },
+    {
+      "name": "Size controls persist and apply after combat",
+      "passed": true
+    },
+    {
+      "name": "Invalid sizes leave the current setting intact",
+      "passed": true
+    },
+    {
+      "name": "Learned ranks refresh only after combat",
+      "passed": true
+    },
+    {
+      "name": "Controls can be disabled without inventing a Paladin interrupt",
+      "passed": true
+    },
+    {
+      "name": "Unavailable mouse APIs fail closed",
+      "passed": true
+    },
+    {
+      "name": "Rejected attachment clears all active actions",
+      "passed": true
+    },
+    {
+      "name": "Forbidden roots are skipped",
+      "passed": true
+    },
+    {
+      "name": "Missing nameplate APIs do not prevent load",
+      "passed": true
+    },
+    {
+      "name": "Full macro slots do not overwrite user macros or arm partial actions",
+      "passed": true
+    },
+    {
+      "name": "Partially available macro capacity never partially arms the bar",
+      "passed": true
+    },
+    {
+      "name": "User-edited owned macro is preserved",
+      "passed": true
+    },
+    {
+      "name": "Duplicate macro names are not reused",
+      "passed": true
+    },
+    {
+      "name": "Probe ownership is copied and validated before reuse",
+      "passed": true
+    },
+    {
+      "name": "Truncated macro readback never arms",
+      "passed": true
+    },
+    {
+      "name": "Repeated refresh does not duplicate buttons or macros",
+      "passed": true
+    },
+    {
+      "name": "Mouseover observations never invoke native casting themselves",
+      "passed": true
+    },
+    {
+      "name": "Startup in combat defers macros and secure creation",
+      "passed": true
+    },
+    {
+      "name": "No abilities means no fabricated button",
+      "passed": true
+    },
+    {
+      "name": "Existing probe is disarmed during initialization",
+      "passed": true
+    },
+    {
+      "name": "WARRIOR learned ability discovery",
+      "passed": true
+    },
+    {
+      "name": "ROGUE learned ability discovery",
+      "passed": true
+    },
+    {
+      "name": "MAGE learned ability discovery",
+      "passed": true
+    },
+    {
+      "name": "SHAMAN learned ability discovery",
+      "passed": true
+    },
+    {
+      "name": "DRUID learned ability discovery",
+      "passed": true
+    },
+    {
+      "name": "HUNTER learned ability discovery",
+      "passed": true
+    },
+    {
+      "name": "PALADIN learned ability discovery",
+      "passed": true
+    },
+    {
+      "name": "PRIEST learned ability discovery",
+      "passed": true
+    },
+    {
+      "name": "WARLOCK learned ability discovery",
+      "passed": true
+    },
+    {
+      "name": "Pet interrupt requires a learned pet spell",
+      "passed": true
+    },
+    {
+      "name": "Racial control appears only when learned",
+      "passed": true
+    },
+    {
+      "name": "Disabled cooldown stays unknown and elapsed cooldown becomes ready",
+      "passed": true
+    },
+    {
+      "name": "Global cooldown is excluded from spell cooldown indicator",
+      "passed": true
+    },
+    {
+      "name": "Spell names containing macro syntax cannot arm actions",
+      "passed": true
+    },
+    {
+      "name": "Client rejecting obsolete learned-spell event still loads and draws first plate",
+      "passed": true
+    },
+    {
+      "name": "Rejected optional event cannot abort handler or command registration",
+      "passed": true
+    },
+    {
+      "name": "Every event registers after handlers and slash command exist",
+      "passed": true
+    },
+    {
+      "name": "Initialization emits a versioned load confirmation once",
+      "passed": true
+    },
+    {
+      "name": "Login initializes if addon-loaded delivery was missed",
+      "passed": true
+    },
+    {
+      "name": "World entry initializes if startup event delivery was missed",
+      "passed": true
+    },
+    {
+      "name": "First nameplate appearing after startup attaches through its event",
+      "passed": true
+    },
+    {
+      "name": "Ready cast stays fully colored in combat",
+      "passed": true
+    },
+    {
+      "name": "Idle enemy fades all button art without hiding the secure action",
+      "passed": true
+    },
+    {
+      "name": "Cooldown fades in combat and recovers when ready during casting",
+      "passed": true
+    },
+    {
+      "name": "Unknown combat cooldown preserves color without claiming ready",
+      "passed": true
+    },
+    {
+      "name": "Unknown casting does not masquerade as idle",
+      "passed": true
+    },
+    {
+      "name": "Channels receive the same full-color emphasis",
+      "passed": true
+    },
+    {
+      "name": "Known out-of-range is red and not selected as ready",
+      "passed": true
+    },
+    {
+      "name": "Returning in range restores normal color",
+      "passed": true
+    },
+    {
+      "name": "Unknown and secret range never become red",
+      "passed": true
+    },
+    {
+      "name": "Legacy range uses localized name and supports numeric result",
+      "passed": true
+    },
+    {
+      "name": "Range alias must be the same nameplate enemy",
+      "passed": true
+    },
+    {
+      "name": "Mailbox root without an enemy never receives a button",
+      "passed": true
+    },
+    {
+      "name": "Friendly or interactable units are not armed",
+      "passed": true
+    },
+    {
+      "name": "Unit removal clears every visual immediately during combat",
+      "passed": true
+    },
+    {
+      "name": "Removed enemy detaches outside combat to prevent mailbox clicks",
+      "passed": true
+    },
+    {
+      "name": "Reused root for a friendly clears artwork without combat mutation",
+      "passed": true
+    },
+    {
+      "name": "Confirmed enemy with restricted reaction retains casting visuals",
+      "passed": true
+    },
+    {
+      "name": "Upgrade preserves layout and opacity defaults",
+      "passed": true
+    },
+    {
+      "name": "Bare slash command opens reusable nonsecure menu",
+      "passed": true
+    },
+    {
+      "name": "Size slider sets custom size and updates real geometry",
+      "passed": true
+    },
+    {
+      "name": "Auto checkbox restores exact previous default anchor geometry",
+      "passed": true
+    },
+    {
+      "name": "Offsets add to measured root anchor",
+      "passed": true
+    },
+    {
+      "name": "Combat menu applies opacity and glow immediately, layout after combat",
+      "passed": true
+    },
+    {
+      "name": "Idle and cooldown opacity are independent; fainter wins when both apply",
+      "passed": true
+    },
+    {
+      "name": "Zero opacity clears all artwork but preserves secure action",
+      "passed": true
+    },
+    {
+      "name": "Glow toggle preserves ready marker and tint",
+      "passed": true
+    },
+    {
+      "name": "Preview and menu reflect saved values without changing macros",
+      "passed": true
+    },
+    {
+      "name": "Appearance reset preserves enable/control preference",
+      "passed": true
+    },
+    {
+      "name": "Menu close and Escape registration are scoped to this menu",
+      "passed": true
+    },
+    {
+      "name": "Saved appearance values persist across initialization",
+      "passed": true
+    },
+    {
+      "name": "Invalid saved appearance values revert individually",
+      "passed": true
+    },
+    {
+      "name": "Invalid option input cannot corrupt saved state",
+      "passed": true
+    },
+    {
+      "name": "Minimap launcher appears automatically with left click only",
+      "passed": true
+    },
+    {
+      "name": "Minimap click opens existing options without changing enablement",
+      "passed": true
+    },
+    {
+      "name": "Minimap options remain usable in combat",
+      "passed": true
+    },
+    {
+      "name": "Minimap drag saves position and suppresses release click",
+      "passed": true
+    },
+    {
+      "name": "Minimap drag converts scaled cursor coordinates",
+      "passed": true
+    },
+    {
+      "name": "Saved minimap angle survives startup and resizing",
+      "passed": true
+    },
+    {
+      "name": "Invalid minimap angle falls back without changing appearance",
+      "passed": true
+    },
+    {
+      "name": "Square minimap positioning follows its edge",
+      "passed": true
+    },
+    {
+      "name": "Late minimap creation retries at world entry",
+      "passed": true
+    },
+    {
+      "name": "Launcher failure does not abort startup or slash options",
+      "passed": true
+    },
+    {
+      "name": "Minimap tooltip identifies the addon and cleans up on leave",
+      "passed": true
+    },
+    {
+      "name": "Repeated login never duplicates the minimap button",
+      "passed": true
+    },
+    {
+      "name": "Hidden combat timer with active flag honors zero cooldown opacity",
+      "passed": true
+    },
+    {
+      "name": "Hidden timer honors nonzero cooldown opacity exactly",
+      "passed": true
+    },
+    {
+      "name": "Hidden timer with inactive flag restores color and readiness",
+      "passed": true
+    },
+    {
+      "name": "Active flag countdown expiry restores icon without leaving combat",
+      "passed": true
+    },
+    {
+      "name": "Active cooldown and idle opacity combine using fainter preference",
+      "passed": true
+    },
+    {
+      "name": "Native duration activity works when timing and flag are restricted",
+      "passed": true
+    },
+    {
+      "name": "Native duration zero fallback excludes global cooldown",
+      "passed": true
+    },
+    {
+      "name": "Nonzero native duration fades without readable seconds",
+      "passed": true
+    },
+    {
+      "name": "Restricted native duration result falls back to plain activity flag",
+      "passed": true
+    },
+    {
+      "name": "Rejected native duration API does not break plain cooldown path",
+      "passed": true
+    },
+    {
+      "name": "Secret active flag is never interpreted as false or true",
+      "passed": true
+    },
+    {
+      "name": "Cooldown opacity slider still applies while combat timer is hidden",
+      "passed": true
+    },
+    {
+      "name": "Real native cooldown overrides stale GCD-only numeric reading",
+      "passed": true
+    },
+    {
+      "name": "Status reports activity source without disclosing secret timing",
+      "passed": true
+    },
+    {
+      "name": "Native duration can report ready when numeric API is unavailable",
+      "passed": true
+    },
+    {
+      "name": "Full character macro cache restores icons across fifty rebuilds",
+      "passed": true
+    },
+    {
+      "name": "New spell choices preserve every default",
+      "passed": true
+    },
+    {
+      "name": "Disabled families leave only selected secure actions",
+      "passed": true
+    },
+    {
+      "name": "New ranks keep the spell family disabled",
+      "passed": true
+    },
+    {
+      "name": "Saved family selections survive initialization",
+      "passed": true
+    },
+    {
+      "name": "Combat selection does not mutate protected actions or macros",
+      "passed": true
+    },
+    {
+      "name": "Select none clears all active buttons out of combat",
+      "passed": true
+    },
+    {
+      "name": "Combat select none keeps actions until combat ends",
+      "passed": true
+    },
+    {
+      "name": "Choices cannot grant unlearned spells",
+      "passed": true
+    },
+    {
+      "name": "Pet ability filtering preserves pet-known checks",
+      "passed": true
+    },
+    {
+      "name": "Racial selection follows family ID",
+      "passed": true
+    },
+    {
+      "name": "Current-class selection does not overwrite another class",
+      "passed": true
+    },
+    {
+      "name": "Malformed saved selections normalize safely",
+      "passed": true
+    },
+    {
+      "name": "Appearance reset does not reset spell choices",
+      "passed": true
+    },
+    {
+      "name": "Controls toggle remains compatible with individual choices",
+      "passed": true
+    },
+    {
+      "name": "Options navigation reuses windows and closes correctly",
+      "passed": true
+    },
+    {
+      "name": "Spell checkbox changes its own family",
+      "passed": true
+    },
+    {
+      "name": "Unknown family changes are ignored",
+      "passed": true
+    },
+    {
+      "name": "Spell menu covers WARRIOR",
+      "passed": true
+    },
+    {
+      "name": "Spell menu covers ROGUE",
+      "passed": true
+    },
+    {
+      "name": "Spell menu covers MAGE",
+      "passed": true
+    },
+    {
+      "name": "Spell menu covers SHAMAN",
+      "passed": true
+    },
+    {
+      "name": "Spell menu covers DRUID",
+      "passed": true
+    },
+    {
+      "name": "Spell menu covers HUNTER",
+      "passed": true
+    },
+    {
+      "name": "Spell menu covers PALADIN",
+      "passed": true
+    },
+    {
+      "name": "Spell menu covers PRIEST",
+      "passed": true
+    },
+    {
+      "name": "Spell menu covers WARLOCK",
+      "passed": true
+    }
+  ]
+}

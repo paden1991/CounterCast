@@ -1,0 +1,50 @@
+{
+  "width": 600,
+  "height": 670,
+  "defaults": {
+    "size": 0,
+    "offsetX": 0,
+    "offsetY": 0,
+    "idleAlpha": 0.15,
+    "cooldownAlpha": 0.15,
+    "castGlow": true
+  },
+  "sliderPositions": {
+    "size": {
+      "x": 30,
+      "y": 145,
+      "value": 32,
+      "min": 16,
+      "max": 64
+    },
+    "offsetX": {
+      "x": 30,
+      "y": 207,
+      "value": 0,
+      "min": -100,
+      "max": 100
+    },
+    "offsetY": {
+      "x": 30,
+      "y": 269,
+      "value": 0,
+      "min": -80,
+      "max": 80
+    },
+    "idleAlpha": {
+      "x": 30,
+      "y": 331,
+      "value": 15,
+      "min": 0,
+      "max": 100
+    },
+    "cooldownAlpha": {
+      "x": 30,
+      "y": 393,
+      "value": 15,
+      "min": 0,
+      "max": 100
+    }
+  },
+  "source": "Lua mock widget geometry; schematic only"
+}

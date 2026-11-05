@@ -2,10 +2,20 @@
 
 Clickable interrupt and control abilities on enemy nameplates.
 
-**WoW Forever · Interface 16001 · 1.0.0-rc6**
+**WoW Forever · Interface 16001 · 1.0.0-rc8**
 
 Release candidate / beta. Live-game acceptance is still required.
 
+
+## Choose which spells appear
+
+After updating, use `/reload`, then `/countercast spells`, or open the minimap menu and click **Choose spells**. Toggle individual class abilities or use **Select all** / **Select none**. Choices save account-wide across spell ranks. Unlearned spells remain unavailable until learned; pet and racial requirements still apply. Changes made in combat apply after combat ends. Appearance settings and defaults are preserved.
+
+This release also includes rc7's saved-macro reuse repair: matching macros can be reused when character macro slots are full, without deleting existing macros or changing action-bar bindings.
+
+![Spell selection in UIForever](docs/spell-selection-preview.png)
+
+See [behavior and simulator checks](docs/SPELL-SELECTION.md) and [147 passing Lua checks](docs/verification.json). The preview is from UIForever; it is not live-game casting proof.
 
 ## WowUp installation and publishing
 
@@ -22,7 +32,10 @@ Open the addon with `/countercast`.
 ## Verification
 
 ```sh
+python -m pip install lupa
+python tools/verify.py
 python tools/build_local.py --verify-only
+python tools/build_release.py
 ```
 
 This checks the published runtime bytes against the reviewed source manifest. For repositories with external files, add `--local-addon` to verify the complete build. It is a source-integrity check, not live-game certification.

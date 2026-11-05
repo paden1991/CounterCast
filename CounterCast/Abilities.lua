@@ -43,9 +43,26 @@ function P:Candidates(class)
  for _,row in ipairs(families)do
   for _,id in ipairs(row.ids)do if self:Known(id,row.pet)then
    local name,icon=self:Spell(id)
-   if name then out[#out+1]={id=id,name=name,icon=icon,kind=row.kind,pet=row.pet}end
+   if name and self:IsSpellSelected(row.ids[#row.ids])then out[#out+1]={id=id,name=name,icon=icon,kind=row.kind,pet=row.pet,family=row.ids[#row.ids]}end
    break
   end end
+ end
+ return out
+end
+-- Save the family ID, not the currently learned rank. Absent means enabled.
+function P:IsSpellSelected(family)
+ local disabled=self.db and self.db.disabledSpells
+ return type(disabled)~='table' or disabled[tostring(family)]~=true
+end
+function P:SpellChoices(class)
+ local out={};local families={}
+ for _,row in ipairs(self.abilities[class]or {})do families[#families+1]=row end
+ families[#families+1]=self.racial
+ for _,row in ipairs(families)do
+  local family=row.ids[#row.ids];local learned
+  for _,id in ipairs(row.ids)do if self:Known(id,row.pet)then learned=id;break end end
+  local name,icon=self:Spell(learned or family)
+  out[#out+1]={family=family,id=learned or family,name=name or ('Spell #'..family),icon=icon,kind=row.kind,pet=row.pet,known=learned~=nil,racial=row==self.racial,selected=self:IsSpellSelected(family)}
  end
  return out
 end

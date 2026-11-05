@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0-rc8",
+  "source": "Lua 5.1 mocked runtime, not a game screenshot",
+  "anchor": "RIGHT",
+  "relativeAnchor": "RIGHT",
+  "x": -2,
+  "y": 0,
+  "width": 32,
+  "height": 32,
+  "healthWidth": 200,
+  "healthHeight": 32,
+  "macro": "/cast [@mouseover,harm,nodead] Spell 5588"
+}

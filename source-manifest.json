@@ -1,30 +1,30 @@
 {
   "addon": "CounterCast",
-  "version": "1.0.0-rc6",
+  "version": "1.0.0-rc8",
   "interface": 16001,
   "files": [
     {
       "path": "Abilities.lua",
-      "bytes": 5724,
-      "sha256": "a3c07e03720067b4bb6341e798f03f31b960a54315e341d191293410af6cf0ad",
+      "bytes": 6660,
+      "sha256": "2c7467de7497c5ee428acf8a830c09dd30c2dad2e7356aa06448219969ac3a89",
       "external": false
     },
     {
       "path": "CounterCast.lua",
-      "bytes": 16234,
-      "sha256": "a41d60f3427f90e076affbdc270031875ec07e34a363223d43d722a573217ced",
+      "bytes": 16361,
+      "sha256": "986bbacf430f7d92ac46516e2b2c76f01882014869608b94ba263f787643001c",
       "external": false
     },
     {
       "path": "CounterCast.toc",
       "bytes": 409,
-      "sha256": "8d17b7a3309c8f606c8e62ccbffb12a3f87672b11b2a41361134ba17f5d2ab86",
+      "sha256": "d1ac0015e7923662a78390be673ee05d4a0b21a3ad446184809ef60581db2d8e",
       "external": false
     },
     {
       "path": "MacroActions.lua",
-      "bytes": 2999,
-      "sha256": "d3e459bd977cef36bf0ea8eec786c3643e9895dec80e0ef449cb1d47c247194a",
+      "bytes": 3921,
+      "sha256": "d724ba01173e23a1e00983e20e70dbef73fed7b439173362d2ddc4e28ff79ece",
       "external": false
     },
     {
@@ -35,8 +35,8 @@
     },
     {
       "path": "Options.lua",
-      "bytes": 7866,
-      "sha256": "8b7b9b762ec2e3962e3f62c428125909ccd16aa76d7d107abd76e2bc876b4cff",
+      "bytes": 13184,
+      "sha256": "3dff5c130f50eb68bc32b0f517ee74cb34797be6ca19a7149f6fac258460f50a",
       "external": false
     }
   ]
